@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./src/backend 
+    container_name: backend-container
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+
+  frontend:
+    build: ./src/frontend  
+    container_name: frontend-container
+    ports:
+      - "80:80"
+    depends_on:
+      - backend  
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
